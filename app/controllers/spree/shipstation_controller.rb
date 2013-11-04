@@ -10,6 +10,7 @@ module Spree
     skip_before_filter :verify_authenticity_token, only: :shipnotify
 
     def export
+      Rails.logger.info(request.env.inspect)
       @shipments = Spree::Shipment.exportable
                            .between(date_param(:start_date),
                                     date_param(:end_date))
