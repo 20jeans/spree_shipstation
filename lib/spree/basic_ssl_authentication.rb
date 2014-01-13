@@ -11,8 +11,6 @@ module Spree
 
     def authenticate
       authenticate_or_request_with_http_basic do |username, password|
-        Rails.logger.info "username: expected #{Spree::Config.shipstation_username}, got #{username}"
-        Rails.logger.info "password: expected #{Spree::Config.shipstation_password}, got #{password}"
         username == Spree::Config.shipstation_username && password == Spree::Config.shipstation_password
       end
     end
