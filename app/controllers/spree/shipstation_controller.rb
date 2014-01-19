@@ -1,10 +1,9 @@
 module Spree
-  class ShipstationController < Spree::BaseController
-    layout false
+  class ShipstationController < ApplicationController
     include Spree::DateParamHelper
 
     ssl_required
-    before_filter :authenticate
+    before_filter :authenticate_shipstation
 
     skip_before_filter :verify_authenticity_token, only: :shipnotify
 
@@ -13,6 +12,7 @@ module Spree
                            .between(date_param(:start_date), date_param(:end_date))
                            .page(params[:page])
                            .per(50)
+      render layout: false
     end
 
     def shipnotify
@@ -32,7 +32,7 @@ module Spree
 
     protected
 
-    def authenticate
+    def authenticate_shipstation
       authenticate_or_request_with_http_basic do |username, password|
         logger.info "#{username}:#{password}"
         username == Spree::Config.shipstation_username && password == Spree::Config.shipstation_password

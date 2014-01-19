@@ -1,6 +1,6 @@
 # HACK ALERT
-# Shipstation uses a query string parameter called "action", 
-# Rails already uses that for something else.. 
+# Shipstation uses a query string parameter called "action",
+# Rails already uses that for something else..
 # This rack app maps the "action" parameter to the actual controller action name
 class MapQueryStringApp
   def self.call(env)
