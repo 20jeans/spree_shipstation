@@ -11,7 +11,8 @@ module Spree
       locate ? update : not_found
     end
 
-  private
+    private
+
     def locate
       @shipment = if Spree::Config.shipstation_number == :order
         Spree::Order.where(number: @number).first.try(:shipment)
