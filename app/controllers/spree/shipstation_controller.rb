@@ -30,7 +30,7 @@ module Spree
     protected
 
     def authenticate_shipstation
-      logger.info "AUTH: #{request.headers['HTTP_AUTHORIZATION']}"
+      logger.info "HEADERS: #{request.headers}"
       # authenticate_or_request_with_http_basic do |username, password|
       #   logger.info "#{username}:#{password}"
       #   username == Spree::Config.shipstation_username && password == Spree::Config.shipstation_password
