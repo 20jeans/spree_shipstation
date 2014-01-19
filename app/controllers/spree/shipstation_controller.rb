@@ -3,7 +3,7 @@ include SpreeShipstation
 module Spree
   class ShipstationController < Spree::BaseController
     layout false
-    # include BasicSslAuthentication
+    include BasicSslAuthentication
     include Spree::DateParamHelper
 
 
@@ -23,6 +23,7 @@ module Spree
       if notice.apply
         render(text: 'success')
       else
+        Rails.logger.error("SHIPNOTIFY_ERROR: " + error)
         render(text: notice.error, status: :bad_request)
       end
     end
