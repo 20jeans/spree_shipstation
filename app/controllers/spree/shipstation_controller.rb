@@ -1,11 +1,10 @@
-include SpreeShipstation
-
 module Spree
   class ShipstationController < Spree::BaseController
     layout false
-    include BasicSslAuthentication
     include Spree::DateParamHelper
 
+    ssl_required
+    before_filter :authenticate
 
     skip_before_filter :verify_authenticity_token, only: :shipnotify
 
@@ -24,6 +23,19 @@ module Spree
       else
         Rails.logger.error("SHIPNOTIFY_ERROR: " + error)
         render(text: notice.error, status: :bad_request)
+      end
+    end
+
+    def logger
+      @_logger ||= Logger.new(Rails.root + 'log/shipfuckingstation.log')
+    end
+
+    protected
+
+    def authenticate
+      authenticate_or_request_with_http_basic do |username, password|
+        logger.info "#{username}:#{password}"
+        username == Spree::Config.shipstation_username && password == Spree::Config.shipstation_password
       end
     end
   end
