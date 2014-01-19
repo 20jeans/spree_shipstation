@@ -2,7 +2,7 @@ module Spree
   class ShipstationController < ApplicationController
     include Spree::DateParamHelper
 
-    ssl_required
+    force_ssl
     before_filter :authenticate_shipstation
 
     skip_before_filter :verify_authenticity_token, only: :shipnotify
