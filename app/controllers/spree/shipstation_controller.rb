@@ -11,8 +11,7 @@ module Spree
 
     def export
       @shipments = Spree::Shipment.exportable
-                           .between(date_param(:start_date),
-                                    date_param(:end_date))
+                           .between(date_param(:start_date), date_param(:end_date))
                            .page(params[:page])
                            .per(50)
     end
